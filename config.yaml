@@ -1,0 +1,66 @@
+server:
+  host: "localhost"
+  port: 8001
+
+log:
+  level: "debug"
+  format: "json"
+  output: "both"  # stdout, file, both
+  file_path: "logs/ai_push_message.log"
+
+external_api:
+  tag_push_url: "http://111.193.48.174:16010/stage-api/openApi/receiveUserAITags"
+  api_key: "${EXTERNAL_API_KEY}"  # API密钥
+
+database:
+  host: "localhost"
+  port: 3306
+  password: ""  # 从.env文件中的DATABASE_PASSWORD读取
+  database: "ai_center"
+  charset: "utf8mb4"
+  parse_time: true
+  max_open_conns: 50    # 最大打开连接数
+  max_idle_conns: 10    # 最大空闲连接数
+  conn_max_lifetime: 60 # 连接最大生命周期（分钟）
+
+rag:
+  url: "http://localhost:8080/api/v1/knowledge-base/search"
+  api_key: ""  # 从.env文件中的RAG_API_KEY读取
+  kb_ids: ["kb_beginner", "kb_faq", "kb_general"] 
+  topk: 12
+  threshold: 0.3
+  timeout_sec: 30
+
+llm:
+  max_concurrency: 5  # LLM并发请求数
+
+cron:
+  lookback_days: 30
+  profile_hour: 0    # 每天生成画像的小时（0-23）
+  profile_min: 0     # 每天生成画像的分钟（0-59）
+  concurrency: 10    # 用户画像生成并发数
+  push_concurrency: 20  # 推送并发数
+
+
+
+timeouts:
+  request_sec: 30    # 请求超时，单位：秒
+  response_sec: 60   # 响应超时，单位：秒
+  idle_sec: 120      # 空闲超时，单位：秒
+
+siliconflow:
+    api_key: "${SILICONFLOW_API_KEY}"  # 从环境变量读取
+    model: "THUDM/GLM-4-32B-0414"
+    base_url: "https://api.siliconflow.cn"
+    max_token_length: 10000  # 最大token截断长度
+
+# debug模式配置
+debug:
+  enabled: true               # debug模式开关，true=每recommendation_freq推荐一次，false=每天凌晨推荐一次
+  recommendation_freq: 1800   # debug模式下推荐频率（秒）
+
+# 调度器配置
+scheduler:
+  check_interval_sec: 60  # 调度器检查间隔（秒）
+  default_hour: 0         # 默认执行小时
+  default_minute: 0       # 默认执行分钟 

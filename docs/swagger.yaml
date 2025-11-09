@@ -1,0 +1,227 @@
+info:
+  contact: {}
+paths:
+  /api/profile/{cid}:
+    get:
+      consumes:
+      - application/json
+      description: 获取指定用户的画像数据
+      parameters:
+      - description: 用户ID
+        in: path
+        name: cid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: 参数错误
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: 服务器错误
+          schema:
+            additionalProperties: true
+            type: object
+      summary: 获取用户画像
+      tags:
+      - 用户画像
+  /api/profile/generate:
+    post:
+      consumes:
+      - application/json
+      description: 为所有用户生成画像
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: 服务器错误
+          schema:
+            additionalProperties: true
+            type: object
+      summary: 生成所有用户的画像
+      tags:
+      - 用户画像
+  /api/profile/generate/{cid}:
+    post:
+      consumes:
+      - application/json
+      description: 为指定用户生成画像
+      parameters:
+      - description: 用户ID
+        in: path
+        name: cid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: 参数错误
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: 服务器错误
+          schema:
+            additionalProperties: true
+            type: object
+      summary: 生成指定用户的画像
+      tags:
+      - 用户画像
+  /api/push/all:
+    post:
+      consumes:
+      - application/json
+      description: 手动触发为所有用户通过HTTP推送已生成的推荐内容
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: 服务器错误
+          schema:
+            additionalProperties: true
+            type: object
+      summary: 为所有用户通过HTTP推送内容
+      tags:
+      - 推送
+  /api/push/user/{cid}:
+    post:
+      consumes:
+      - application/json
+      description: 手动触发为指定用户通过HTTP推送已生成的推荐内容（不生成新的推荐内容）
+      parameters:
+      - description: 用户ID
+        in: path
+        name: cid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: 参数错误
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: 服务器错误
+          schema:
+            additionalProperties: true
+            type: object
+      summary: 为指定用户通过HTTP推送已生成的推荐内容
+      tags:
+      - 推送
+  /api/recommendation/{cid}:
+    get:
+      consumes:
+      - application/json
+      description: 获取指定用户的推荐内容
+      parameters:
+      - description: 用户ID
+        in: path
+        name: cid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: 参数错误
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: 服务器错误
+          schema:
+            additionalProperties: true
+            type: object
+      summary: 获取用户推荐内容
+      tags:
+      - 推荐内容
+  /api/recommendation/generate:
+    post:
+      consumes:
+      - application/json
+      description: 根据用户画像为所有用户生成推荐内容
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: 服务器错误
+          schema:
+            additionalProperties: true
+            type: object
+      summary: 为所有用户生成推荐内容
+      tags:
+      - 推荐内容
+  /api/recommendation/generate/{cid}:
+    post:
+      consumes:
+      - application/json
+      description: 根据用户画像为指定用户生成推荐内容，但不推送给用户
+      parameters:
+      - description: 用户ID
+        in: path
+        name: cid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: 参数错误
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: 服务器错误
+          schema:
+            additionalProperties: true
+            type: object
+      summary: 为指定用户生成推荐内容（不推送）
+      tags:
+      - 推荐内容
+swagger: "2.0"

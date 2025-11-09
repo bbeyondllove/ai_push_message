@@ -1,0 +1,10 @@
+data
+logs
+temp
+*.tmp
+*.temp
+*.exe
+.env
+.claude
+.codebuddy
+codeguard_analysis
