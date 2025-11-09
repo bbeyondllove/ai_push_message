@@ -271,23 +271,23 @@ func GetCombinedUserData(cid string, lookbackDays int, lastTime time.Time) (*Com
 		   AND message_time >= DATE_SUB(NOW(), INTERVAL ? DAY)
 		   AND message_time > ?`
 
-	rows, err = db.DB.Query(queryGroup, cid, lookbackDays, lastTime)
+	rows2, err := db.DB.Query(queryGroup, cid, lookbackDays, lastTime)
 	if err != nil {
 		logger.Error("Failed to query group messages", "error", err)
 		return data, nil // 返回部分数据而不是错误
 	}
 	defer func() {
-		if rows != nil {
-			rows.Close()
+		if rows2 != nil {
+			rows2.Close()
 		}
 	}()
 
 	messages, titles, groups := make([]string, 0), make([]string, 0), make([]string, 0)
 	groupSeen := make(map[string]bool)
 
-	for rows.Next() {
+	for rows2.Next() {
 		var content, title, groupName sql.NullString
-		if err := rows.Scan(&content, &title, &groupName); err == nil {
+		if err := rows2.Scan(&content, &title, &groupName); err == nil {
 			if content.Valid && content.String != "" {
 				messages = append(messages, strings.TrimSpace(content.String))
 			}
